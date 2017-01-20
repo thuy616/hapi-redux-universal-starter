@@ -8,3 +8,6 @@
 
 ### Run production
 * `npm run start`
+
+### Deployment
+* This starter kit is Heroku deployable out of the box!!
