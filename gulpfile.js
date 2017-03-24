@@ -36,7 +36,7 @@ var ignored_files = '!' + hidden_files;
 
 // MAIN PATHS
 var paths = {
-    app: 'master/',
+    app: 'app/',
     dist: 'dist/',
     styles: 'sass/',
     scripts: 'src/'
@@ -72,8 +72,7 @@ var source = {
     images: [paths.app + 'img/**/*'],
     fonts: [
         paths.app + 'fonts/*.{ttf,woff,woff2,eof,svg}'
-    ],
-    serverAssets: [paths.app + 'server/**/*']
+    ]
 };
 
 // BUILD TARGET CONFIG
@@ -81,8 +80,7 @@ var build = {
     scripts: paths.dist + 'js',
     styles: paths.dist + 'css',
     images: paths.dist + 'img',
-    fonts: paths.dist + 'fonts',
-    serverAssets: paths.dist + 'server'
+    fonts: paths.dist + 'fonts'
 };
 
 // PLUGINS OPTIONS
@@ -233,12 +231,6 @@ gulp.task('images', function() {
         .pipe(gulp.dest(build.images))
 })
 
-gulp.task('server-assets', function() {
-    return gulp.src(source.serverAssets)
-        .pipe(gulp.dest(build.serverAssets))
-})
-
-
 //---------------
 // WATCH
 //---------------
@@ -314,7 +306,6 @@ gulp.task('default', gulpsync.sync([
 gulp.task('assets', [
     'fonts',
     'images',
-    'server-assets',
     'scripts:app',
     'styles:app',
     'styles:app:rtl',

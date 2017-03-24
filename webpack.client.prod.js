@@ -3,7 +3,7 @@ var webpack = require('webpack');
 
 module.exports = {
     entry: [
-        path.resolve(__dirname, 'master/src/client')
+        path.resolve(__dirname, 'app/src/client')
     ],
     output: {
         path: path.resolve(__dirname, 'build'),
@@ -19,8 +19,7 @@ module.exports = {
           "process.env": {
             "NODE_ENV": JSON.stringify(process.env.NODE_ENV) || JSON.stringify('production'),
             "CLIENT_ID": JSON.stringify(process.env.CLIENT_ID) || JSON.stringify('aF2xUgsBQqkLFmXwDKQgP8dLe'),
-            "CLIENT_SECRET": JSON.stringify(process.env.CLIENT_SECRET) || JSON.stringify('BPaXFopxaZZ72wh'),
-            "IMGIX_BASE_URL": JSON.stringify(process.env.IMGIX_BASE_URL) || JSON.stringify('https://detour-assets.imgix.net')
+            "CLIENT_SECRET": JSON.stringify(process.env.CLIENT_SECRET) || JSON.stringify('BPaXFopxaZZ72wh')
           }
         }),
         new webpack.optimize.OccurenceOrderPlugin(),
