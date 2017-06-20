@@ -1,8 +1,0 @@
-[
-  "bower_components/jquery/dist/jquery.js",
-  "bower_components/bootstrap/dist/js/bootstrap.js",
-  "bower_components/bootstrap/dist/css/bootstrap.css",
-  "bower_components/jquery.easing/js/jquery.easing.js",
-  "bower_components/fontawesome/css/font-awesome.min.css",
-  "bower_components/fontawesome/fonts/*"
-]

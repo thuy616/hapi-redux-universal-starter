@@ -1,15 +1,15 @@
 import React from 'react';
 import { Router, browserHistory, Route, IndexRoute, IndexRedirect } from 'react-router';
 import NotFound from './components/NotFound';
-import Main from './components/Main';
-import SingleView from './components/Views/SingleView';
+import BasePage from './components/Main';
+import Home from './components/Home';
 
 export default (
   <Router>
 
-    <Route path="/" component={Main}>
+    <Route path="/" component={BasePage}>
       {/* Default route*/}
-      <IndexRoute component={SingleView} />
+      <IndexRoute component={Home}/>
     </Route>
 
     <Route path="*" component={NotFound} />

@@ -48,16 +48,6 @@ if (useSass) {
     paths.styles = 'sass/';
 }
 
-// VENDOR CONFIG
-var vendor = {
-    source: './vendor.json',
-    dist: paths.dist + 'vendor',
-    bundle: {
-        js: 'vendor.bundle.js',
-        css: 'vendor.bundle.css'
-    }
-};
-
 // SOURCES CONFIG
 var source = {
     scripts: {
@@ -129,50 +119,6 @@ gulp.task('scripts:app', function() {
         .pipe( $.if(isProduction, reload({ stream: true})) );
 });
 
-// VENDOR BUILD
-// copy file from bower folder into the app vendor folder
-gulp.task('vendor', function() {
-    log('Copying vendor assets..');
-
-    var jsFilter = $.filter('**/*.js', {
-        restore: true
-    });
-    var cssFilter = $.filter('**/*.css', {
-        restore: true
-    });
-    var imgFilter = $.filter('**/*.{png,jpg}', {
-        restore: true
-    });
-    var fontsFilter = $.filter('**/*.{ttf,woff,woff2,eof,svg}', {
-        restore: true
-    });
-
-    var vendorSrc = JSON.parse(fs.readFileSync(vendor.source, 'utf8'));
-
-    return gulp.src(vendorSrc, {
-            base: 'bower_components'
-        })
-        .pipe($.expectFile(vendorSrc))
-        .pipe(jsFilter)
-        .pipe($.if(isProduction, $.uglify(vendorUglifyOpts)))
-        .pipe($.concat(vendor.bundle.js))
-        .pipe(gulp.dest(build.scripts))
-        .pipe(jsFilter.restore())
-        .pipe(cssFilter)
-        .pipe($.if(isProduction, $.cssnano(cssnanoOpts)))
-        .pipe($.concat(vendor.bundle.css))
-        .pipe(gulp.dest(build.styles))
-        .pipe(cssFilter.restore())
-        .pipe(imgFilter)
-        .pipe($.flatten())
-        .pipe(gulp.dest(build.images))
-        .pipe(imgFilter.restore())
-        .pipe(fontsFilter)
-        .pipe($.flatten())
-        .pipe(gulp.dest(build.fonts));
-
-});
-
 // APP LESS
 gulp.task('styles:app', function() {
     log('Building application styles..');
@@ -238,40 +184,9 @@ gulp.task('images', function() {
 // Rerun the task when a file changes
 gulp.task('watch', function() {
     log('Watching source files..');
-
     gulp.watch(source.scripts.app, ['scripts:app']);
     gulp.watch(source.styles.watch, ['styles:app', 'styles:app:rtl']);
     gulp.watch(source.styles.themes, ['styles:themes']);
-    gulp.watch(vendor.source, ['vendor']);
-
-});
-
-// Serve files with auto reload
-gulp.task('browsersync', function() {
-    log('Starting BrowserSync..');
-
-    var middlewares = [historyApiFallback()];
-
-    if (!isProduction) {
-        middlewares = middlewares.concat([
-            webpackDevMiddleware(bundler, {
-                publicPath: webpackConfig.output.publicPath,
-                stats: {
-                    colors: true
-                }
-            }),
-            webpackHotMiddleware(bundler)
-        ])
-    }
-
-    browserSync({
-        notify: false,
-        server: {
-            baseDir: paths.dist,
-            middleware: middlewares
-        },
-        files: [source.scripts.app]
-    });
 });
 
 //---------------
@@ -280,14 +195,12 @@ gulp.task('browsersync', function() {
 
 // build for production (no watch)
 gulp.task('build', gulpsync.sync([
-    'vendor',
     'assets'
 ]));
 
 // Server for development
 gulp.task('serve', gulpsync.sync([
-    'default',
-    'browsersync'
+    'default'
 ]));
 
 // build with sourcemaps (no minify)

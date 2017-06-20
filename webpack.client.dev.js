@@ -18,8 +18,6 @@ module.exports = {
         new webpack.DefinePlugin({
           "process.env": {
             "NODE_ENV": JSON.stringify(process.env.NODE_ENV) || JSON.stringify('development'),
-            "CLIENT_ID": JSON.stringify(process.env.CLIENT_ID) || JSON.stringify('aF2xUgsBQqkLFmXwDKQgP8dLe'),
-            "CLIENT_SECRET": JSON.stringify(process.env.CLIENT_SECRET) || JSON.stringify('BPaXFopxaZZ72wh')
           }
         }),
         new webpack.optimize.OccurenceOrderPlugin(),
@@ -46,6 +44,9 @@ module.exports = {
         }, {
             test: /\.woff|\.woff2|\.svg|.eot|\.ttf/,
             loader: 'url?prefix=font/&limit=10000'
+        }, {
+            test: /\.json$/,
+            loader: 'json-loader'
         }]
     }
 };

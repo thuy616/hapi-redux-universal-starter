@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import Header from './Header';
 
-export default class Main extends Component {
+export default class BasePage extends Component {
   render() {
     return (
       <div>
-        {this.props.children}
+        <Header />
+        {React.cloneElement(this.props.children)}
       </div>
     );
   }

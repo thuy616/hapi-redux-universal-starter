@@ -1,13 +1,7 @@
-### Install
-* `npm install`
-* `bower install`
+# BOILERPLATE UNIVERSAL HAPI-REACT APP
 
-### Run development env
-* `npm run dev`
-* The website will be served on localhost:8080
+### Run in development
+`npm run develop`
 
-### Run production
-* `npm run start`
-
-### Deployment
-* This starter kit is Heroku deployable out of the box!!
+### Run in production
+`npm run start`
